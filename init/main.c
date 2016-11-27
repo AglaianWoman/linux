@@ -422,6 +422,9 @@ static int __init do_early_param(char *param, char *val,
 	const struct obs_kernel_param *p;
 
 	for (p = __setup_start; p < __setup_end; p++) {
+		if (p->early) {
+			printk("early param %s\n", p->str);
+		}
 		if ((p->early && parameq(param, p->str)) ||
 		    (strcmp(param, "console") == 0 &&
 		     strcmp(p->str, "earlycon") == 0)
